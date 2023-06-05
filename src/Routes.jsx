@@ -7,15 +7,17 @@ import { PageNotFound } from './pages/PageNotFound'
 
 function App() {
   return (
-    <HashRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/*' element={<PageNotFound />} />
-        </Routes>
-      </AuthProvider>
-    </HashRouter>
+    <>
+      <HashRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path='/' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/*' element={<PageNotFound />} />
+          </Routes>
+        </AuthProvider>
+      </HashRouter>
+    </>
   )
 }
 

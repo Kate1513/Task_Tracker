@@ -27,6 +27,7 @@ function AuthProvider({ children }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       setLoggedUser(userCredential)
+      navigate('/home')
     } catch {
       throw new Error('No existe el usuario')
     }
