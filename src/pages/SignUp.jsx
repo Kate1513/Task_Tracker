@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { useAuth } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
 import { Input } from '../components/Input'
-import { Warning } from '../components/Alerts'
+import { ButtonAuth } from '../components/Buttons'
+import { Alert, Warning } from '../components/Alerts'
 
 function SignUp() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [warning, setWarning] = useState('')
   const [error, setError] = useState('')
 
   const auth = useAuth()
@@ -22,6 +24,17 @@ function SignUp() {
 
   const goLogin = () => {
     navigate('/')
+  }
+
+  const handlePassword = (e) => {
+    const value = e.target.value
+    setPassword(value)
+
+    if (value.length >= 6) {
+      setWarning('')
+    } else {
+      setWarning('La contraseña debe tener al menos 6 caracteres.')
+    }
   }
 
   return (
@@ -57,6 +70,7 @@ function SignUp() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {error && <Alert>{error}</Alert>}
               <Input
                 type='password'
                 name='password'
@@ -64,16 +78,11 @@ function SignUp() {
                 value={password}
                 placeholder='******'
                 label='Contraseña*'
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePassword}
                 required
               />
-              {error && <Warning>{error}</Warning>}
-              <button
-                type='submit'
-                className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
-              >
-                Crear cuenta
-              </button>
+              {warning && <Warning>{warning}</Warning>}
+              <ButtonAuth>Crear cuenta</ButtonAuth>
               <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
                 ¿Ya tienes una cuenta?{' '}
                 <a onClick={goLogin} className='font-medium text-primary-600 hover:underline dark:text-primary-500'>
