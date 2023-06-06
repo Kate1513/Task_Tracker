@@ -1,5 +1,11 @@
 import React from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+  signOut,
+} from 'firebase/auth'
 import { auth } from './firebase'
 import { registerUser } from './realTimeDB'
 import { useNavigate } from 'react-router-dom'
@@ -25,12 +31,20 @@ function AuthProvider({ children }) {
   // Login with email and password
   const loginUser = async (email, password) => {
     try {
+      await setPersistence(auth, browserSessionPersistence)
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       setLoggedUser(userCredential)
       navigate('/home')
-    } catch {
+    } catch (error) {
       throw new Error('No existe el usuario')
     }
+    // try {
+    //   const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    //   setLoggedUser(userCredential)
+    //   navigate('/home')
+    // } catch {
+    //   throw new Error('No existe el usuario')
+    // }
   }
 
   // LogOut User
