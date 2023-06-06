@@ -1,7 +1,7 @@
 import React from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
-import { setDoc, doc } from 'firebase/firestore'
-import { auth, db } from './firebase'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { auth } from './firebase'
+import { registerUser } from './realTimeDB'
 import { useNavigate } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 
@@ -15,10 +15,10 @@ function AuthProvider({ children }) {
   const signUpUser = async (email, password, nickname) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      registerDocUser(userCredential.user.uid, nickname)
+      registerUser(userCredential.user.uid, nickname)
       navigate('/')
     } catch {
-      throw new Error()
+      throw new Error('Email ya registrado.')
     }
   }
 
@@ -33,14 +33,15 @@ function AuthProvider({ children }) {
     }
   }
 
-  // Create User Document in Firestore.
-  const registerDocUser = async (uid, nickname) => {
-    await setDoc(doc(db, 'Users', uid), {
-      name: nickname,
-    })
+  // LogOut User
+  const logOutUser = () => {
+    window.sessionStorage.clear()
+    setLoggedUser(null)
+    signOut(auth)
+    navigate('/')
   }
 
-  const authUser = { loggedUser, signUpUser, loginUser }
+  const authUser = { loggedUser, signUpUser, loginUser, logOutUser }
 
   return <AuthContext.Provider value={authUser}>{children}</AuthContext.Provider>
 }
