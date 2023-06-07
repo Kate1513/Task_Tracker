@@ -1,33 +1,38 @@
 # Task Tracker
 
+![Task-Tracker](./Task_Tracker/public/write-image.svg)
+
 ## Índice
 
 - [1. Información general del proyecto](#1-información)
 - [1.1 Historias de usuario](#1.1-historias-de-usuario)
-- [2. Funcionalidad](#2-funcionalidad)
+- [2. Manual de instrucciónes](#2-manual_de_instrucciónes)
 - [3. Requerimientos](#3-requerimientos)
 - [4. Tecnologías implementadas](#4-tecnologías_implementadas)
-- [5. Video](#5-video)
+- [5. Diseño y arquitectura](#5-diseño_y_arquitectura)
+- [5.1 Diseño](#5.1-diseño)
+- [5.2 Arquitectura](#5.2-Arquitectura)
+- [6. Video](#5-video)
 
 ## 1. Información general del proyecto
 
-Sitio web sobre creacion y seguimiento de tareas
-
-### 1.1
+Sitio web para crear tareas que sirven como herramienta para facilitar la organización de las actividades diarias.
+Se puede acceder a las tareas desde cualquier dispositivo con conexión a internet, siendo una solución práctica y moderna para mejorar la productividad y el rendimiento.
 
 **Sitio Web desplegado**
+[Link:](https://)
 
-### 1.2 Historias de usuario
+### 1.1 Historias de usuario
 
 1. Yo como usuario puedo registrarme con mi nombre, correo electrónico y contraseña.
 2. Yo como usuario puedo iniciar y cerrar sesion.
 3. Yo como usuario puedo crear una tarea.
-4. Yo como usuario puedo eliminar una tarea.
-5. Yo como usuario puedo editar una tarea.
+4. Yo como usuario puedo editar una tarea.
+5. Yo como usuario puedo eliminar una tarea.
 
-## 2. Funcionalidad
+## 2. Manual de instrucciones
 
-Los procesos que se pueden realizar en el sitio web son:
+Este manual te explica cómo acceder al contenido de la página principal, donde podrás ver los cómics que te gustan. Solo tienes que seguir estos pasos:
 
 - Inicio de sesión: Aquí tienes que escribir tu correo electrónico y tu contraseña en los campos correspondientes. Si no tienes una cuenta, puedes crearla haciendo clic en el enlace "Crea tu cuenta" que está debajo del botón "Iniciar sesión".
 
@@ -59,4 +64,18 @@ Los requerimientos para la correcta visualizacion del sitio web son:
 - Firebase
 - Tailwind
 
-## 5. Video
+## 5. Diseño y arquitectura
+
+### 5.1 Diseño:
+
+El diseño implementado es bastante sencillo pero tiene una estructura responsive y toda la parte visual es arminiosa.
+He usado componentes basados en Tailwind.
+Los colores base fueron blanco, gris y Cian.
+
+### 5.2 Arquitectura:
+
+El patron de arquitectura manejado fue **arquitectura de capas**. esta decision la tomo partiendo de que no tiene una estructura compleja en el backend en la que pueda implementar otras arquitecturas como cliente-servidor o MVC.
+
+## 6. Video
+
+[Video demo](https://)
