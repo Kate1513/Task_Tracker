@@ -1,6 +1,6 @@
 # Task Tracker
 
-![Task-Tracker](./public/write-image.png)
+![Task-Tracker](./public/write-image.png){width=300px height=200px}
 
 ## Índice
 
@@ -21,7 +21,7 @@ Se puede acceder a las tareas desde cualquier dispositivo con conexión a intern
 
 **Sitio Web desplegado**
 
-[Despliegue del sitio web](https://task-tracker-d0tqaev4m-kate1513.vercel.app/ 'Despliegue del sitio web') :fa-hand-o-left:
+[Despliegue del sitio web](https://task-tracker-kn9oxny7g-kate1513.vercel.app/ 'Despliegue del sitio web') :fa-hand-o-left:
 
 ### 1.1 Historias de usuario
 
