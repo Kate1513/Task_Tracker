@@ -1,6 +1,6 @@
 # Task Tracker
 
-![Task-Tracker](./Task_Tracker/public/write-image.svg)
+![Task-Tracker](./public/write-image.png)
 
 ## Índice
 
@@ -20,7 +20,8 @@ Sitio web para crear tareas que sirven como herramienta para facilitar la organi
 Se puede acceder a las tareas desde cualquier dispositivo con conexión a internet, siendo una solución práctica y moderna para mejorar la productividad y el rendimiento.
 
 **Sitio Web desplegado**
-[Link:](https://)
+
+[Link:](https://https://task-tracker-d0tqaev4m-kate1513.vercel.app/)
 
 ### 1.1 Historias de usuario
 
@@ -78,4 +79,4 @@ El patron de arquitectura manejado fue **arquitectura de capas**. esta decision 
 
 ## 6. Video
 
-[Video demo](https://)
+[Video demo](https://www.loom.com/share/5599408d697740afad865941da7e68e3)
