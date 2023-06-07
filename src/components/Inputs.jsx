@@ -1,5 +1,8 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
+import { addTask } from '../services/realTimeDB'
+import { useAuth } from '../services/auth'
+import { ButtonAuth } from './Buttons'
 
 function Input(props) {
   return (
@@ -20,37 +23,43 @@ function Input(props) {
   )
 }
 
-function TaskContent(props) {
+function TaskContent() {
+  const auth = useAuth()
+
+  const submitTask = (e) => {
+    e.preventDefault()
+
+    const newTask = {
+      title: e.target.title.value,
+      content: e.target.content.value,
+      completed: false,
+    }
+    console.log(newTask)
+    addTask(auth.loggedUser.user.uid, newTask)
+  }
+
   return (
     <>
-      <input
-        type='text'
-        id='small-input'
-        placeholder='Nombre de Tarea'
-        className='block w-full p-2 mb-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-      >
-        {props.title}
-      </input>
-      <form>
+      <form onSubmit={submitTask}>
+        <input
+          type='text'
+          id='title'
+          placeholder='Nombre de Tarea'
+          className='block w-full p-2 mb-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          required
+        />
         <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
           <div className='px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
             <textarea
-              id='comment'
+              id='content'
               rows='4'
               className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'
               placeholder='Escribe tu tarea...'
               required
-            >
-              {props.content}
-            </textarea>
+            />
           </div>
           <div className='flex items-center justify-end px-3 py-2 border-t dark:border-gray-600'>
-            <button
-              type='submit'
-              className='inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800'
-            >
-              Crear
-            </button>
+            <ButtonAuth>Crear</ButtonAuth>
           </div>
         </div>
       </form>
@@ -69,8 +78,8 @@ Input.propTypes = {
 }
 
 TaskContent.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  content: PropTypes.string,
 }
 
 export { Input, TaskContent }

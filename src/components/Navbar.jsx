@@ -24,9 +24,7 @@ function Navbar() {
         <div className='flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4'>
           <div className='flex items-center'>
             <img src='/public/note-img.svg' className='h-12 mr-3' alt='Flowbite Logo' />
-            <span className='self-center break-words sm:text-2xl font-semibold whitespace-nowrap dark:text-white'>
-              {name}
-            </span>
+            <span className='self-center w-20 md:w-auto  sm:text-2xl font-semibold dark:text-white'>{name}</span>
           </div>
           <div className='flex items-center'>
             <a

@@ -1,6 +1,7 @@
 import { ref, set, get, onValue, update, remove, child, push } from 'firebase/database'
 import { db } from './firebase.js'
 
+
 // Create User in the DB.
 const registerUser = async (uid, nickname) => {
   await set(ref(db, 'users/' + uid), {
@@ -8,60 +9,55 @@ const registerUser = async (uid, nickname) => {
   })
 }
 
-
 // Get user data from the DB.
 const getUserData = async (uid) => {
-  const dbRef = ref(db);
+  const dbRef = ref(db)
   const userSnap = await get(child(dbRef, `users/${uid}`))
   if (userSnap.exists()) {
     return userSnap.val()
-  } else {
-      throw new Error('No existe el usuario en la base de datos.')
-    }
-}
-// Add new toDo.
-const addToDo = async(uid, toDo)=>{
-  try{
-    const newToDoId = push(child(ref(db, 'user-todos/'))).key
-    const updatePost = {}
-    updatePost[`/user-todos/${uid}/${newToDoId}`] = toDo
-    return update(ref(db), updatePost)
-  }
-  catch{
-    throw new Error('Error al agregar la tarea.')
-  }  
-}
-
-// Get user toDos.
-const getUserToDos = async (uid) => {
-  const userToDos = onValue(ref(db, `user-todos/${uid}`))
-  if (userToDos.exists()) {
-    return userToDos.val()
   } else {
     throw new Error('No existe el usuario en la base de datos.')
   }
 }
 
-// Edit toDo.
-const editToDo = async(uid, toDoId, toDo)=>{
-  try{
+// Add new task.
+const addTask = async (uid, task) => {
+  try {
+    const newTaskRef = push(child(ref(db), `user-tasks/${uid}`))
+    return await set(newTaskRef, task)
+  } catch (error) {
+    throw new Error('Error al agregar la tarea.')
+  }
+}
+
+// Get user Tasks.
+const getUserTasks = async (uid) => {
+  const userTasksRef = ref(db, `user-tasks/${uid}`)
+  let data = {}
+  onValue(userTasksRef, (snapshot) => {
+     data = snapshot.val()
+  })
+  return data ? Object.entries(data).map(([key, value]) => ({ taskId: key, task: value })) : []
+}
+
+// Edit task.
+const editTask = async (uid, taskId, task) => {
+  try {
     const updatePost = {}
-    updatePost[`/user-todos/${uid}/${toDoId}`] = toDo
+    updatePost[`user-tasks/${uid}/${taskId}`] = task
     return update(ref(db), updatePost)
-  }
-  catch{
+  } catch {
     throw new Error('Error al actualizar la tarea.')
-  }  
-}
-
-// Remove toDo.
-const removeToDo = async(uid, toDoIdToBeRemove)=>{
-  try{
-    remove(ref(db, `user-todos/${uid}/${toDoIdToBeRemove}`))
   }
-  catch{
-    throw new Error('Error al eliminar la tarea.')
-  }  
 }
 
-export { registerUser, getUserData, getUserToDos, addToDo, editToDo, removeToDo }
+// Remove task.
+const removeTask = async (uid, taskIdToBeRemove) => {
+  try {
+    remove(ref(db, `user-tasks/${uid}/${taskIdToBeRemove}`))
+  } catch {
+    throw new Error('Error al eliminar la tarea.')
+  }
+}
+
+export { registerUser, getUserData, getUserTasks, addTask, editTask, removeTask }
