@@ -21,15 +21,17 @@ Se puede acceder a las tareas desde cualquier dispositivo con conexión a intern
 
 **Sitio Web desplegado**
 
-[Link:](https://https://task-tracker-d0tqaev4m-kate1513.vercel.app/)
+[Despliegue del sitio web](https://task-tracker-d0tqaev4m-kate1513.vercel.app/ 'Despliegue del sitio web') :fa-hand-o-left:
 
 ### 1.1 Historias de usuario
 
 1. Yo como usuario puedo registrarme con mi nombre, correo electrónico y contraseña.
 2. Yo como usuario puedo iniciar y cerrar sesion.
-3. Yo como usuario puedo crear una tarea.
-4. Yo como usuario puedo editar una tarea.
-5. Yo como usuario puedo eliminar una tarea.
+3. yo como usuario puedo ver mi nombre en el sitio web.
+4. Yo como usuario puedo crear una tarea.
+5. Yo como usuario puedo editar una tarea.
+6. Yo como usuario puedo eliminar una tarea.
+7. Yo como usuario puedo marcar una tarea como realiazada (Cambia a color verde).
 
 ## 2. Manual de instrucciones
 
@@ -79,4 +81,4 @@ El patron de arquitectura manejado fue **arquitectura de capas**. esta decision 
 
 ## 6. Video
 
-[Video demo](https://www.loom.com/share/5599408d697740afad865941da7e68e3)
+[Video demostrativo del sitio web](https://www.loom.com/share/5599408d697740afad865941da7e68e3 'Video demostrativo del sitio web') :fa-hand-o-left:

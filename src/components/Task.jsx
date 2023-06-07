@@ -135,6 +135,9 @@ CreateTask.propTypes = {
 EditTask.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  taskId: PropTypes.string,
 }
 
 export { PrintTask, CreateTask, EditTask }

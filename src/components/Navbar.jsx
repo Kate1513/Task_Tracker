@@ -23,7 +23,7 @@ function Navbar() {
       <nav className='p-1 md:p-4 bg-white border-gray-200 dark:bg-gray-900'>
         <div className='flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4'>
           <div className='flex items-center'>
-            <img src='/note-img.svg' className='h-12 mr-3' alt='Logo' />
+            <img src='/note-img.png' className='h-12 mr-3' alt='Logo' />
             <span className='self-center w-20 md:w-auto  sm:text-2xl font-semibold dark:text-white'>{name}</span>
           </div>
           <div className='flex items-center'>
