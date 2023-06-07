@@ -1,6 +1,6 @@
 # Task Tracker
 
-![Task-Tracker](./public/write-image.png){width=300px height=200px}
+<img src="./public/write-image.png" alt="Task-Tracker" width="300" height="200" />
 
 ## Índice
 
