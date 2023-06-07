@@ -9,15 +9,21 @@ import { useAuth } from '../services/auth'
 function PrintTask() {
   const auth = useAuth()
   const [userTasks, setUserTasks] = useState([])
-  const [openEdit, setOpenEdit] = useState('isClose')
+  const [openEdit, setOpenEdit] = useState(false)
+  const [taskToEdit, setTaskToEdit] = useState(null)
+
+  const toggleModal = () => {
+    setOpenEdit(!openEdit)
+    setTaskToEdit(null)
+  }
 
   const updateChecked = (element) => {
     element.task.completed = !element.task.completed
     editTask(auth.loggedUser.user.uid, element.taskId, element.task)
   }
   const toUpdate = (element) => {
-    setOpenEdit('isOpen')
-    element.task.completed = !element.task.completed
+    setTaskToEdit(element)
+    setOpenEdit(true)
   }
 
   const deleteTask = (element) => {
@@ -30,7 +36,15 @@ function PrintTask() {
 
   return (
     <>
-      <CreateTask isOpen={openEdit} onClose={openEdit} />
+      {taskToEdit && openEdit ? (
+        <EditTask
+          isOpen={openEdit}
+          onClose={toggleModal}
+          title={taskToEdit.task.title}
+          content={taskToEdit.task.content}
+          taskId={taskToEdit.taskId}
+        />
+      ) : null}
       {userTasks.length > 0 ? (
         userTasks.map((element) => (
           <>
@@ -38,10 +52,12 @@ function PrintTask() {
               <div className='flex justify-between border-b'>
                 <CheckTask checked={element.task.completed} onClick={() => updateChecked(element)} />
                 <div className='flex sm:mr-2 pb-1'>
-                  <PencilSquareIcon
-                    onClick={() => toUpdate(element)}
-                    className='h-7 w-7 text-gray-500 cursor-pointer'
-                  />
+                  {openEdit ? null : (
+                    <PencilSquareIcon
+                      onClick={() => toUpdate(element)}
+                      className='h-7 w-7 text-gray-500 cursor-pointer'
+                    />
+                  )}
                   <TrashIcon
                     onClick={() => deleteTask(element)}
                     className='h-7 w-7 ml-2 text-gray-500 cursor-pointer'
@@ -52,7 +68,7 @@ function PrintTask() {
                 <h5
                   className={
                     element.task.completed
-                      ? 'mb-2 text-2xl font-bold tracking-tight text-green-500 dark:text-white'
+                      ? 'mb-2 text-2xl font-bold tracking-tight line-through text-green-500 dark:text-white'
                       : 'mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
                   }
                 >
@@ -82,13 +98,13 @@ function CreateTask({ isOpen, onClose }) {
         <div className='flex justify-end border-b mb-2'>
           <XMarkIcon onClick={onClose} className='h-6 w-6 mb-1 text-gray-500 cursor-pointer' />
         </div>
-        <TaskContent></TaskContent>
+        <TaskContent type='new'></TaskContent>
       </div>
     </>
   )
 }
 
-function EditTask({ isOpen, onClose }) {
+function EditTask({ isOpen, onClose, title, content, taskId }) {
   if (!isOpen) {
     return null
   }
@@ -96,9 +112,12 @@ function EditTask({ isOpen, onClose }) {
     <>
       <div className='block max-w-sm px-5 py-3 mx-6 sm:mx-auto my-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
         <div className='flex justify-end border-b mb-2'>
+          <p>
+            Editando: <strong>{title}</strong>
+          </p>
           <XMarkIcon onClick={onClose} className='h-6 w-6 mb-1 text-gray-500 cursor-pointer' />
         </div>
-        <TaskContent></TaskContent>
+        <TaskContent type='edit' title={title} content={content} taskId={taskId}></TaskContent>
       </div>
     </>
   )

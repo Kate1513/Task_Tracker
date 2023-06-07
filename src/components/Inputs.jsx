@@ -1,6 +1,6 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
-import { addTask } from '../services/realTimeDB'
+import { addTask, editTask } from '../services/realTimeDB'
 import { useAuth } from '../services/auth'
 import { ButtonAuth } from './Buttons'
 
@@ -23,19 +23,24 @@ function Input(props) {
   )
 }
 
-function TaskContent() {
+function TaskContent({ type, title, content, taskId }) {
   const auth = useAuth()
 
   const submitTask = (e) => {
     e.preventDefault()
 
-    const newTask = {
+    const task = {
       title: e.target.title.value,
       content: e.target.content.value,
       completed: false,
     }
-    console.log(newTask)
-    addTask(auth.loggedUser.user.uid, newTask)
+
+    if (type === 'new') {
+      return addTask(auth.loggedUser.user.uid, task)
+    }
+    if (type === 'edit') {
+      return editTask(auth.loggedUser.user.uid, taskId, task)
+    }
   }
 
   return (
@@ -47,6 +52,7 @@ function TaskContent() {
           placeholder='Nombre de Tarea'
           className='block w-full p-2 mb-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           required
+          defaultValue={title}
         />
         <div className='w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
           <div className='px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800'>
@@ -56,10 +62,11 @@ function TaskContent() {
               className='w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400'
               placeholder='Escribe tu tarea...'
               required
+              defaultValue={content}
             />
           </div>
           <div className='flex items-center justify-end px-3 py-2 border-t dark:border-gray-600'>
-            <ButtonAuth>Crear</ButtonAuth>
+            {type === 'new' ? <ButtonAuth>Crear</ButtonAuth> : <ButtonAuth>Guardar</ButtonAuth>}
           </div>
         </div>
       </form>
