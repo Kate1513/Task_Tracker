@@ -1,6 +1,8 @@
 # Task Tracker
 
-<img src="./public/write-image.png" alt="Task-Tracker" width="700" height="700"/>
+<div style="text-align: center;">
+<img src="./public/write-image.png" alt="Task-Tracker" width="500" height="500"/>
+</div>
 
 ## Índice
 
